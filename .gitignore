@@ -1,0 +1,13 @@
+build/
+.mygit/
+.vscode/
+*.exe
+*.o
+*.obj
+*.txt
+!CMakeLists.txt
+znote.txt
+.cache/
+.clangd
+.git*
+Testing/

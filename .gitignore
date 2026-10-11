@@ -11,3 +11,5 @@ znote.txt
 .clangd
 .git*
 Testing/
+*.zip
+release/

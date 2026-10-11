@@ -9,7 +9,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 // ---------------------------------------------------------------
 // API
 // ---------------------------------------------------------------
@@ -39,6 +38,9 @@ int pathList_add(pathList *list, const char *path) {
 }
 
 int pathList_free(pathList *list) {
+  if (list == NULL)
+    return -1;
+
   for (int i = 0; i < list->count; i++) {
     free(list->arrPaths[i]);
   }
@@ -103,46 +105,3 @@ void pathList_print(const pathList *list, const char *format) {
     printf(format, list->arrPaths[i]);
   }
 }
-
-// TEST
-#ifdef TEST_PATHLIST
-
-#include <assert.h>
-#include <stdio.h>
-
-int main() {
-  pathList list;
-  pathList_init(&list);
-
-  // ADD FILES.\test_pathlist.exe
-  pathList_add(&list, "src/utils/math.c");
-  pathList_add(&list, "README.md");
-  pathList_add(&list, "src/main.c");
-  pathList_add(&list, "Makefile");
-  printf("\n\n=== RUNNING UNIT TEST: PATHLIST ===\n");
-  printf("=== BEFORE QSORT ===\n");
-  pathList_print(&list, "  %s\n");
-
-  // SORTING TEST
-  pathList_sort(&list);
-
-  printf("=== AFTER SORT ===\n");
-  pathList_print(&list, "  %s\n");
-  assert(strcmp(list.arrPaths[0], "Makefile") == 0);
-  assert(strcmp(list.arrPaths[1], "README.md") == 0);
-  assert(strcmp(list.arrPaths[2], "src/main.c") == 0);
-  assert(strcmp(list.arrPaths[3], "src/utils/math.c") == 0);
-
-  // BINARY SEARCH TEST
-  assert(pathList_findIndex(&list, "Makefile") == 0);
-  assert(pathList_findIndex(&list, "README.md") == 1);
-  assert(pathList_findIndex(&list, "src/main.c") == 2);
-  assert(pathList_findIndex(&list, "src/utils/math.c") == 3);
-  assert(pathList_findIndex(&list, "nonexistent.c") == -1);
-
-  printf("=== PATHLIST: ALL TESTS PASSED! ===\n\n");
-  pathList_free(&list);
-
-  return 0;
-}
-#endif

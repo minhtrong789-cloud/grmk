@@ -31,4 +31,4 @@ int createFolder(const char *dirPath);
 
 // Repo & Directory traversal
 char *findGitRepo(void);
-pathList *parseFilePath(pathList *files, bool isFilter);
+pathList *parseFilePath(pathList *files, const char *startPath, bool isFilter);

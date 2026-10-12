@@ -8,6 +8,7 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 add_compile_options(-Wall -g)
 
+
 if(NOT WIN32)
     message(FATAL_ERROR "GRMK currently only supports Windows platform.")
 endif()
@@ -46,6 +47,14 @@ add_test(NAME test_pathList COMMAND test_pathList)
 add_executable(test_stage Test/test_stage.c)
 target_link_libraries(test_stage PRIVATE grmk_core)
 add_test(NAME test_stage COMMAND test_stage)
+
+add_executable(test_utils Test/test_utils.c)
+target_link_libraries(test_utils PRIVATE grmk_core)
+add_test(NAME test_utils COMMAND test_utils)
+
+add_executable(test_objects Test/test_objects.c)
+target_link_libraries(test_objects PRIVATE grmk_core)
+add_test(NAME test_objects COMMAND test_objects)
 
 # ---------------------------------------------------------------
 # Main Executable
